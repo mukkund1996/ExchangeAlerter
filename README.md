@@ -7,9 +7,9 @@ The following parameters need to be specified through environment variables:
 
 - `ACCESS_TOKEN`: Meta developer access token required to be generated for the page.
   
-- `WEBHOOK_TOKEN`: Webhook verification message needed to be set to authenticate with the webserver. *(Optional)*
+- `WEBHOOK_TOKEN`: Webhook verification message needed to be set to authenticate with the webserver *(Optional)*
   
-- `EXCHANGE_API_URL`: Currency exchange API used. *Recommended API: `api.exchangerate.host/latest`*
+- `EXCHANGE_API_URL`: Currency exchange API used. *Recommended API: `api.exchangerate.host/latest`*.
   
 - `CHECKING_INTERVAL`: Interval of checking the currency exchange rates. 
   
@@ -17,9 +17,11 @@ The following parameters need to be specified through environment variables:
    
 - `SENDER_ID`: The ID of the recipient.
   
-- `FROM_CURRENCY`: Currency keyword *(Refer API documentation)*
+- `FROM_CURRENCY`: Currency keyword *(Refer API documentation)*.
   
-- `TO_CURRENCY`: Currency keyword *(Refer API documentation)*
+- `TO_CURRENCY`: Currency keyword *(Refer API documentation)*.
+
+- `RESPONSE_PATTERN`: The Regex pattern used to match the recipent's text to send back rates. 
 
 ### Run the program
 Use the command:

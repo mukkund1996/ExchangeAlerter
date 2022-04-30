@@ -30,7 +30,7 @@ webhookRouter.post("/webhook", (req, res) => {
           createExchangeAlerts(checkRate, webhookEvent.sender.id);
         } else {
           let responseText =
-            "This is a forex bot. Send 'Check rate' to see the rates";
+            "This is a forex bot. Send 'Check rate' to see the rates.";
           sendMessage(webhookEvent.sender.id, responseText);
         }
       }
