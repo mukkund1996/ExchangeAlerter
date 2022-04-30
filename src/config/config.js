@@ -7,7 +7,7 @@ config = {
   senderID: process.env.SENDER_ID,
   fromCurrency: process.env.FROM_CURRENCY,
   toCurrency: process.env.TO_CURRENCY,
-  responsePattern: process.env.RESPONSE_PATTERN || "d*(?i)check rate(?-i)d*",
+  responsePattern: process.env.RESPONSE_PATTERN,
 };
 
 module.exports = config;

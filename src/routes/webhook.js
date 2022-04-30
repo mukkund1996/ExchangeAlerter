@@ -25,7 +25,7 @@ webhookRouter.post("/webhook", (req, res) => {
       let webhookEvent = entry.messaging[0];
       if (webhookEvent.message && webhookEvent.message.text) {
         let recipientMessage = webhookEvent.message.text;
-        const matchPattern = new RegExp(config.responsePattern);
+        const matchPattern = new RegExp(config.responsePattern, "i");
         if (matchPattern.test(recipientMessage)) {
           createExchangeAlerts(checkRate, webhookEvent.sender.id);
         } else {
