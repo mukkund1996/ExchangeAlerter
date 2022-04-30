@@ -1,40 +1,43 @@
 const https = require("https"),
-    url = require("url"),
-    sendMessage = require(`${__dirname}/message`),
-    config = require(`${__dirname}/config/config`);
+  url = require("url"),
+  sendMessage = require(`${__dirname}/message`),
+  config = require(`${__dirname}/config/config`);
 
-function createExchangeAlerts(from, to) {
-    let dataJson;
-    const params = {
-        "from": from,
-        "to": to
-    }
-    const requestUrl = url.parse(url.format({
-        "protocol": "https",
-        "hostname": config.exchangeApiUri,
-        "pathname": '/convert',
-        "query": params,
-    }));
+function createExchangeAlerts(callbackFunc, senderID) {
+  let dataJson;
+  const params = {
+    from: config.fromCurrency,
+    to: config.toCurrency,
+  };
+  const requestUrl = url.parse(
+    url.format({
+      protocol: "https",
+      hostname: config.exchangeApiUri,
+      pathname: "/convert",
+      query: params,
+    })
+  );
 
-    https.get({
+  https
+    .get(
+      {
         hostname: requestUrl.hostname,
         path: requestUrl.path,
-    }, res => {
-        let data = '';
-        res.on('data', chunk => {
-            data += chunk;
+      },
+      (res) => {
+        let data = "";
+        res.on("data", (chunk) => {
+          data += chunk;
         });
-        res.on('end', () => {
-            dataJson = JSON.parse(data);
-            let exchangeRate = dataJson.result;
-            if (exchangeRate != null && exchangeRate >= config.rateThreshold) {
-                console.log("Exchange threshold met, sending message...");
-                let message = `The exchange rate is currently ${exchangeRate} when converting from ${config.fromCurrency} to ${config.toCurrency}.`;
-                sendMessage(config.senderID, message);
-            }
+        res.on("end", () => {
+          dataJson = JSON.parse(data);
+          let exchangeRate = dataJson.result;
+          callbackFunc(exchangeRate, senderID);
         });
-    }).on('error', error => {
-        console.error(error);
+      }
+    )
+    .on("error", (error) => {
+      console.error(error);
     });
 }
 
